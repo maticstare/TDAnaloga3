@@ -15,6 +15,7 @@
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage{amsfonts}
+\usepackage{tikz}
 
 \graphicspath{ {./graphs/} }
 
@@ -43,8 +44,126 @@
 
 % Sections
 \section{Homology}\label{sec:p1}
+\begin{enumerate}[label*=\alph*)]
+    \item Simplicial complex X:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=10cm]{1a.png}
+            \caption{X drawn as a planar 2-dimensional simplicial complex.}\label{fig:1a}
+        \end{figure}
+    \item Chain groups $C_n$:
+        \begin{itemize}
+            \item $C_0$: A, B, C, D, E, F
+            \item $C_1$: AF, AD, DF, BF, EF, BE, DE, CD, CE
+            \item $C_2$: ADF, BEF
+        \end{itemize}
+    
+    \item The boundary homomorphisms connect the chain groups into a sequence:
+    \begin{equation*}
+        \begin{tikzpicture}[baseline=(current  bounding  box.center)]
+            \node (01) at (-2, 0) {$\langle 0 \rangle$};
+            \node (C2) at (0, 0) {$C_2$};
+            \node (C1) at (2, 0) {$C_1$};
+            \node (C0) at (4, 0) {$C_0$};
+            \node (02) at (6, 0) {$\langle 0 \rangle$};
+            \draw[->] (01) to node {$\partial_3$} (C2);
+            \draw[->] (C2) to node {$\partial_2$} (C1);
+            \draw[->] (C1) to node {$\partial_1$} (C0);
+            \draw[->] (C0) to node {$\partial_0$} (02);
+    \end{tikzpicture}
+    \end{equation*}
+
+    $\partial_2(ADF) = AD + DF - AF$\\
+    $\partial_2(BEF) = BE + EF - BF$
+    
+    $\partial_1(AF) = F - A$\\
+    $\partial_1(AD) = D - A$\\
+    $\partial_1(DF) = F - D$\\
+    $\partial_1(BF) = F - B$\\
+    $\partial_1(EF) = F - E$\\
+    $\partial_1(BE) = E - B$\\
+    $\partial_1(DE) = E - D$\\
+    $\partial_1(CD) = D - C$\\
+    $\partial_1(CE) = E - C$
+    
+    $\partial_0(A) = 0$\\
+    $\partial_0(B) = 0$\\
+    $\partial_0(C) = 0$\\
+    $\partial_0(D) = 0$\\
+    $\partial_0(E) = 0$\\
+    $\partial_0(F) = 0$
+
+    \item 
+        \begin{itemize}
+            \item Cycles $Z_n$: \\
+                $Z_2 = \langle 0 \rangle$\\
+                $Z_1 = \langle AD + DF - AF, BE + EF - BF, CD + DE - CE, DE + EF - DF \rangle$\\
+                $Z_0 = \langle A, B, C, D, E, F \rangle$
+            \item Boundaries $B_n$: \\
+                $B_2 = \langle 0 \rangle$\\
+                $B_1 = \langle AD + DF - AF, BE + EF - BF \rangle$\\
+                $B_0 = \langle F - A, D - A, F - D, F - B, F - E, E - B, E - D, D - C, E - C \rangle$
+        \end{itemize}
+    \item
+        \begin{itemize}
+            \item $H_2(X;\mathbb{Z})= \frac{Z_2}{B_2} = \frac{\langle 0 \rangle}{\langle 0 \rangle} = \langle 0 \rangle$
+            \item $H_1(X;\mathbb{Z}) = \frac{Z_1}{B_1} = 
+                \frac{\langle AD + DF - AF, BE + EF - BF, CD + DE - CE, DE + EF - DF \rangle}
+                        {\langle AD + DF - AF, BE + EF - BF \rangle} =
+                    \langle CD + DE - CE, DE + EF - DF \rangle$
+            \item $H_0(X;\mathbb{Z}) = \frac{Z_0}{B_0} = \frac{\langle A, B, C, D, E, F \rangle}{\langle F - A, D - A, F - D, F - B, F - E, E - B, E - D, D - C, E - C \rangle} = \langle A \rangle = \mathbb{Z}$
+        \end{itemize}
+    \item 
+        \begin{itemize}
+            \item $H_2(X;\mathbb{Z}_2)= \frac{Z_2}{B_2} = \frac{\langle 0 \rangle}{\langle 0 \rangle} = \langle 0 \rangle$
+            \item $H_1(X;\mathbb{Z}_2) = \frac{Z_1}{B_1} = 
+                \frac{\langle AD + DF + AF, BE + EF + BF, CD + DE + CE, DE + EF + DF \rangle}
+                        {\langle AD + DF + AF, BE + EF + BF \rangle} =
+                    \langle CD + DE + CE, DE + EF + DF \rangle$
+            \item $H_0(X;\mathbb{Z}_2) = \frac{Z_0}{B_0} = \frac{\langle A, B, C, D, E, F \rangle}{\langle F + A, D + A, F + D, F + B, F + E, E + B, E + D, D + C, E + C \rangle} = \langle A \rangle = \mathbb{Z}_2$
+        \end{itemize}
+    \item
+        \begin{itemize}
+            \item The Betti numbers of X are $b_1 = 2$ and $b_0 = 1$
+            \item The Euler characteristic of X is $\chi(X) = 1 - 2 = -1$
+        \end{itemize}
+
+\end{enumerate} 
+
+
 
 \section{Discrete Morse Theory}\label{sec:p2}
+\begin{enumerate}[label*=\alph*)]
+    \item Gradient vector field:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{2a.png}
+            \caption{Construction of a vector field on T}\label{fig:2a}
+        \end{figure}
+    \item Our vector field has critical simplices $A$, $EI$, $DG$, $EFI$, so $c_0 = 1$, $c_1 = 2$, $c_2 = 1$.\\
+    The Euler characteristic of T is $\chi(T) = 1 - 2 + 1 = 0$.
+    \item To compute $\partial_2: M_2 \rightarrow M_1$, we count the 2-paths from $\partial(EFI) = EF + FI + EI$ to EI and DG. There are two 2-paths from FI to DG. There is one 2-path from EI to EI and one 2-path from FI to EI.
+    
+    $\partial_2(EFI) = 2 \cdot DG + (1 + 1) \cdot EI = 0 \cdot DG + 0 \cdot GH = 0$.
+
+    To compute $\partial_1: M_1 \rightarrow M_0$, we count the 1-paths from $\partial(DG) = D + G$ and $\partial(EI) = E + I$ to A. For each of D, G, E and I there is one 1-path to A.
+    
+    $\partial_1(DG) = (1 + 1) \cdot A = 0 $\\
+    $\partial_1(EI) = (1 + 1) \cdot A = 0 $
+    
+    Now we can compute the following:
+    
+    $H_2(M;\mathbb{Z}) = \frac{Z_2(M)}{B_2(M)} = \frac{\text{ker}\partial_2}{\text{im}\partial_3} = \text{ker}\partial_2 = \langle EFI \rangle \cong \mathbb{Z}$
+    
+    $H_1(M;\mathbb{Z}) = \frac{Z_1(M)}{B_1(M)} = \frac{\text{ker}\partial_1}{\text{im}\partial_2} = \text{ker}\partial_1 = \langle DG, EI \rangle \cong \mathbb{Z} \oplus \mathbb{Z}$
+    
+    $H_0(M;\mathbb{Z}) = \frac{Z_0(M)}{B_0(M)} = \frac{\text{ker}\partial_0}{\text{im}\partial_1} = \text{ker}\partial_0 = \langle A \rangle \cong \mathbb{Z}$
+
+
+
+    Betti numbers of T with $\mathbb{Z}$ coefficients are $b_0 = 1$, $b_1 = 2$, $b_2 = 1$.
+\end{enumerate}
+
 
 \section{Vietoris-Rips complex}\label{sec:p3}
 
